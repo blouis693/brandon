@@ -53,6 +53,16 @@ target_link_libraries(${PROJECT_NAME_VAR}
     imgui
 )
 
+# Enable GLM experimental extensions globally so every translation unit can
+# include headers such as <glm/gtx/transform.hpp> without needing to define the
+# macro manually before including them. This mirrors the instructions from the
+# GLM documentation and avoids MSVC's compile-time error that is triggered when
+# the macro is missing.
+target_compile_definitions(${PROJECT_NAME_VAR}
+    PRIVATE
+        GLM_ENABLE_EXPERIMENTAL
+)
+
 # ==========================================
 # Header-only Libraries
 # ==========================================
