@@ -81,23 +81,40 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 					f,
 				};
 
-				// collect cascade corners
-				for (int i = 0; i < this->m_numCascade; i++) {
-					float* cascadeVertices = this->m_vertexBuffer + i * 12;
-					// get corner in view space
-                camera->viewFrustumClipPlaneCornersInViewSpace(depths[i], this->m_cornerBuffer);
-                cascadeVertices[5] = this->m_cornerBuffer[2];
-                cascadeVertices[8] = this->m_cornerBuffer[11];
+                                // collect cascade corners
+                                for (int i = 0; i < this->m_numCascade; i++) {
+                                        float* cascadeVertices = this->m_vertexBuffer + i * 12;
 
-                camera->viewFrustumClipPlaneCornersInViewSpace(depths[i + 1], this->m_cornerBuffer);
-                cascadeVertices[0] = this->m_cornerBuffer[0];
-                cascadeVertices[2] = this->m_cornerBuffer[2];
-                cascadeVertices[9] = this->m_cornerBuffer[9];
-                cascadeVertices[11] = this->m_cornerBuffer[11];
+                                        // get near corner (in view space)
+                                        camera->viewFrustumClipPlaneCornersInViewSpace(depths[i], this->m_cornerBuffer);
+                                        const float nearLeftX = this->m_cornerBuffer[0];
+                                        const float nearLeftZ = this->m_cornerBuffer[2];
+                                        const float nearRightX = this->m_cornerBuffer[9];
+                                        const float nearRightZ = this->m_cornerBuffer[11];
 
-                cascadeVertices[3] = this->m_cornerBuffer[0];
-                cascadeVertices[6] = this->m_cornerBuffer[9];
-				}
+                                        // get far corner (in view space)
+                                        camera->viewFrustumClipPlaneCornersInViewSpace(depths[i + 1], this->m_cornerBuffer);
+                                        const float farLeftX = this->m_cornerBuffer[0];
+                                        const float farLeftZ = this->m_cornerBuffer[2];
+                                        const float farRightX = this->m_cornerBuffer[9];
+                                        const float farRightZ = this->m_cornerBuffer[11];
+
+                                        cascadeVertices[0] = nearLeftX;
+                                        cascadeVertices[1] = this->m_height;
+                                        cascadeVertices[2] = nearLeftZ;
+
+                                        cascadeVertices[3] = farLeftX;
+                                        cascadeVertices[4] = this->m_height;
+                                        cascadeVertices[5] = farLeftZ;
+
+                                        cascadeVertices[6] = farRightX;
+                                        cascadeVertices[7] = this->m_height;
+                                        cascadeVertices[8] = farRightZ;
+
+                                        cascadeVertices[9] = nearRightX;
+                                        cascadeVertices[10] = this->m_height;
+                                        cascadeVertices[11] = nearRightZ;
+                                }
 
 				// update buffer
 				glBindBuffer(GL_ARRAY_BUFFER, this->m_vertexBufferHandle);
