@@ -97,8 +97,8 @@ namespace INANOA {
                 GLsizei m_slimeIndexCount = 0;
 
 
-              
 
+       
 
                 GLuint m_rawInstanceSSBO = 0u;
                 GLuint m_visibleInstanceSSBO = 0u;
