@@ -96,6 +96,12 @@ namespace INANOA {
                 GLuint m_slimeTexture = 0u;
                 GLsizei m_slimeIndexCount = 0;
 
+GLuint m_rawInstanceSSBO;
+GLuint m_visibleInstanceSSBO;
+GLuint m_drawCommandSSBO;
+GLuint m_instanceStateSSBO;
+
+size_t m_totalInstanceCount;
                 GLuint m_rawInstanceSSBO = 0u;
                 GLuint m_visibleInstanceSSBO = 0u;
                 GLuint m_drawCommandSSBO = 0u;

@@ -82,6 +82,15 @@ namespace {
 }
 
 RenderingOrderExp::RenderingOrderExp() {
+this->m_cameraForwardSpeed = 0.25f;
+this->m_cameraForwardMagnitude = glm::vec3(0.0f);
+this->m_frameWidth = 64;
+this->m_frameHeight = 64;
+this->m_rawInstanceSSBO = 0u;
+this->m_visibleInstanceSSBO = 0u;
+this->m_drawCommandSSBO = 0u;
+this->m_instanceStateSSBO = 0u;
+this->m_totalInstanceCount = 0u;
         this->m_cameraForwardSpeed = 0.25f;
         this->m_cameraForwardMagnitude = glm::vec3(0.0f);
         this->m_frameWidth = 64;
