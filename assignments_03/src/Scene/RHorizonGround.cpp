@@ -95,7 +95,7 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 					cascadeVertices[9] = -1.0f * this->m_cornerBuffer[9];
 					cascadeVertices[11] = -1.0f * this->m_cornerBuffer[11];
 
-					cascadeVertices[3] = -1.0f * this->m_cornerBuffer[0];					
+					cascadeVertices[3] = -1.0f * this->m_cornerBuffer[0];
 					cascadeVertices[6] = -1.0f * this->m_cornerBuffer[9];
 				}
 
@@ -111,17 +111,20 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 				glm::mat4 tMat = glm::translate(glm::vec3(viewPos.x, this->m_height, viewPos.z));
 				glm::mat4 viewT = glm::transpose(viewMat);
 				glm::vec3 forward = -1.0f * glm::vec3(viewT[2].x, 0.0, viewT[2].z);
-				glm::vec3 y(0.0, 1.0, 0.0);
-				glm::vec3 x = glm::normalize(glm::cross(y, forward));
+				if (glm::length(forward) > 0.0f) {
+					forward = glm::normalize(forward);
+				}
+				const glm::vec3 y(0.0f, 1.0f, 0.0f);
+				glm::vec3 x = glm::normalize(glm::cross(forward, y));
 
-				glm::mat4 rMat;
+				glm::mat4 rMat(1.0f);
 				rMat[0] = glm::vec4(x, 0.0);
 				rMat[1] = glm::vec4(y, 0.0);
 				rMat[2] = glm::vec4(forward, 0.0);
-				rMat[3] = glm::vec4(0.0, 0.0, 0.0, 1.0);
 
 				this->m_modelMat = tMat * rMat;
-			}
-		}
-	}
+                        }
+                }
+        }
 }
+
