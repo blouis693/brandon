@@ -1,5 +1,5 @@
-#include "RHorizonGround.h"
 #define GLM_ENABLE_EXPERIMENTAL
+#include "RHorizonGround.h"
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
