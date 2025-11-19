@@ -91,6 +91,7 @@ this->m_visibleInstanceSSBO = 0u;
 this->m_drawCommandSSBO = 0u;
 this->m_instanceStateSSBO = 0u;
 this->m_totalInstanceCount = 0u;
+       
 }
 
 RenderingOrderExp::~RenderingOrderExp() {
@@ -638,7 +639,6 @@ void RenderingOrderExp::dispatchCullingCompute(const Camera* playerCam, const gl
 }
 
 void RenderingOrderExp::renderViewport(const Camera* camera, const glm::vec3& slimePos, const int viewportX, const int viewportY, const int viewportWidth, const int viewportHeight) {
-        this->m_renderer->bindProgram();
         this->m_renderer->setCamera(camera->projMatrix(), camera->viewMatrix(), camera->viewOrig());
         this->m_renderer->setViewport(viewportX, viewportY, viewportWidth, viewportHeight);
         this->m_renderer->setShadingModel(OPENGL::ShadingModelType::PROCEDURAL_GRID);
