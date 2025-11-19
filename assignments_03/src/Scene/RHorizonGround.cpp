@@ -76,26 +76,11 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 				const float n = camera->near();
 				const float f = camera->far();
 
-                                const float depths[] = {
-                                        n,
-                                        n + 0.4f * (f - n),
-                                        f,
-                                };
-
-                                const glm::vec3 viewOrigin = camera->viewOrig();
-                                const glm::mat4 invView = camera->modelMat();
-                                auto projectToGround = [&](const glm::vec3& viewCorner) {
-                                        const glm::vec3 worldCorner = glm::vec3(invView * glm::vec4(viewCorner, 1.0f));
-                                        const glm::vec3 dir = worldCorner - viewOrigin;
-                                        const float dy = dir.y;
-                                        if (glm::abs(dy) < 1e-4f) {
-                                                return glm::vec3(worldCorner.x, this->m_height, worldCorner.z);
-                                        }
-
-                                        const float t = (this->m_height - viewOrigin.y) / dy;
-                                        const glm::vec3 hit = viewOrigin + dir * t;
-                                        return glm::vec3(hit.x, this->m_height, hit.z);
-                                };
+				const float depths[] = {
+					n,
+					n + 0.4f * (f - n),
+					f,
+				};
 
                                 // collect cascade corners
                                 for (int i = 0; i < this->m_numCascade; i++) {
@@ -103,42 +88,33 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 
                                         // get near corner (in view space)
                                         camera->viewFrustumClipPlaneCornersInViewSpace(depths[i], this->m_cornerBuffer);
-                                        const glm::vec3 nearLeft(
-                                                this->m_cornerBuffer[0], this->m_cornerBuffer[1], this->m_cornerBuffer[2]
-                                        );
-                                        const glm::vec3 nearRight(
-                                                this->m_cornerBuffer[9], this->m_cornerBuffer[10], this->m_cornerBuffer[11]
-                                        );
+                                        const float nearLeftX = this->m_cornerBuffer[0];
+                                        const float nearLeftZ = this->m_cornerBuffer[2];
+                                        const float nearRightX = this->m_cornerBuffer[9];
+                                        const float nearRightZ = this->m_cornerBuffer[11];
 
                                         // get far corner (in view space)
                                         camera->viewFrustumClipPlaneCornersInViewSpace(depths[i + 1], this->m_cornerBuffer);
-                                        const glm::vec3 farLeft(
-                                                this->m_cornerBuffer[0], this->m_cornerBuffer[1], this->m_cornerBuffer[2]
-                                        );
-                                        const glm::vec3 farRight(
-                                                this->m_cornerBuffer[9], this->m_cornerBuffer[10], this->m_cornerBuffer[11]
-                                        );
+                                        const float farLeftX = this->m_cornerBuffer[0];
+                                        const float farLeftZ = this->m_cornerBuffer[2];
+                                        const float farRightX = this->m_cornerBuffer[9];
+                                        const float farRightZ = this->m_cornerBuffer[11];
 
-                                        const glm::vec3 nearLeftOnGround = projectToGround(nearLeft);
-                                        const glm::vec3 nearRightOnGround = projectToGround(nearRight);
-                                        const glm::vec3 farLeftOnGround = projectToGround(farLeft);
-                                        const glm::vec3 farRightOnGround = projectToGround(farRight);
+                                        cascadeVertices[0] = nearLeftX;
+                                        cascadeVertices[1] = this->m_height;
+                                        cascadeVertices[2] = nearLeftZ;
 
-                                        cascadeVertices[0] = nearLeftOnGround.x;
-                                        cascadeVertices[1] = nearLeftOnGround.y;
-                                        cascadeVertices[2] = nearLeftOnGround.z;
+                                        cascadeVertices[3] = farLeftX;
+                                        cascadeVertices[4] = this->m_height;
+                                        cascadeVertices[5] = farLeftZ;
 
-                                        cascadeVertices[3] = farLeftOnGround.x;
-                                        cascadeVertices[4] = farLeftOnGround.y;
-                                        cascadeVertices[5] = farLeftOnGround.z;
+                                        cascadeVertices[6] = farRightX;
+                                        cascadeVertices[7] = this->m_height;
+                                        cascadeVertices[8] = farRightZ;
 
-                                        cascadeVertices[6] = farRightOnGround.x;
-                                        cascadeVertices[7] = farRightOnGround.y;
-                                        cascadeVertices[8] = farRightOnGround.z;
-
-                                        cascadeVertices[9] = nearRightOnGround.x;
-                                        cascadeVertices[10] = nearRightOnGround.y;
-                                        cascadeVertices[11] = nearRightOnGround.z;
+                                        cascadeVertices[9] = nearRightX;
+                                        cascadeVertices[10] = this->m_height;
+                                        cascadeVertices[11] = nearRightZ;
                                 }
 
 				// update buffer
