@@ -1,6 +1,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "RHorizonGround.h"
 
+#include <glm/common.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 #include "../Rendering/ShaderParameterBindingPoint.h"
