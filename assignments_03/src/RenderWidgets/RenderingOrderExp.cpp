@@ -570,11 +570,11 @@ void RenderingOrderExp::initializeSlime() {
 }
 
 void RenderingOrderExp::resize(const int w, const int h) {
-        const int bottomHeight = std::max(1, h / 2);
-        const int topHeight = std::max(1, h - bottomHeight);
+        const int leftWidth = std::max(1, w / 2);
+        const int rightWidth = std::max(1, w - leftWidth);
 
-        this->m_playerCamera->resize(w, bottomHeight);
-        this->m_godCamera->resize(w, topHeight);
+        this->m_godCamera->resize(leftWidth, h);
+        this->m_playerCamera->resize(rightWidth, h);
         this->m_renderer->resize(w, h);
         this->m_frameWidth = w;
         this->m_frameHeight = h;
@@ -598,15 +598,15 @@ void RenderingOrderExp::update() {
 
 void RenderingOrderExp::render() {
         this->m_renderer->clearRenderTarget();
-        const int bottomHeight = std::max(1, this->m_frameHeight / 2);
-        const int topHeight = std::max(1, this->m_frameHeight - bottomHeight);
+        const int leftWidth = std::max(1, this->m_frameWidth / 2);
+        const int rightWidth = std::max(1, this->m_frameWidth - leftWidth);
 
         const glm::vec3 slimePos = this->m_slimeTrajectory.position();
         this->dispatchCullingCompute(this->m_playerCamera, slimePos);
 
-        this->renderViewport(this->m_godCamera, slimePos, 0, bottomHeight, this->m_frameWidth, topHeight);
+        this->renderViewport(this->m_godCamera, slimePos, 0, 0, leftWidth, this->m_frameHeight);
         glClear(GL_DEPTH_BUFFER_BIT);
-        this->renderViewport(this->m_playerCamera, slimePos, 0, 0, this->m_frameWidth, bottomHeight);
+        this->renderViewport(this->m_playerCamera, slimePos, leftWidth, 0, rightWidth, this->m_frameHeight);
 }
 
 void RenderingOrderExp::dispatchCullingCompute(const Camera* playerCam, const glm::vec3& slimePos) {
