@@ -1,7 +1,7 @@
 #pragma once
 
-#include <glm\vec3.hpp>
-#include <glm\gtx\rotate_vector.hpp>
+#include <glm/vec3.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 #include <random>
 
 namespace INANOA {

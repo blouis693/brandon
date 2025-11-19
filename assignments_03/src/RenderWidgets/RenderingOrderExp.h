@@ -9,6 +9,13 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
+#include <glad/glad.h>
+
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+
+#include "../Rendering/Camera/Camera.h"
 #include "../Rendering/RendererBase.h"
 #include "../Scene/RViewFrustum.h"
 #include "../Scene/RHorizonGround.h"
