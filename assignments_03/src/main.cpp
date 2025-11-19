@@ -60,48 +60,39 @@ void on_destroy()
 }
 
 void on_mouse_button(GLFWwindow* window, int button, int action, int mods) {
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
-	{
-
-	}
-
-	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
-	{
-
-	}
-
-	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
-	{
-
-	}
-
-	else if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_RELEASE)
-	{
-
-	}
+        if (renderer == nullptr) {
+                return;
+        }
+        double cursorX = 0.0;
+        double cursorY = 0.0;
+        glfwGetCursorPos(window, &cursorX, &cursorY);
+        renderer->handleMouseButton(button, action, cursorX, cursorY);
 }
 
 void on_cursor_pos(GLFWwindow* window, double x, double y)
 {
-
+        if (renderer == nullptr) {
+                return;
+        }
+        renderer->handleCursor(x, y);
 }
 
 void on_key(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-	{
-
-	}
-
-	else if (key == GLFW_KEY_W && action == GLFW_RELEASE)
-	{
-
-	}
+        if (renderer == nullptr) {
+                return;
+        }
+        if (action == GLFW_PRESS || action == GLFW_RELEASE) {
+                renderer->handleKey(key, action);
+        }
 }
 
 void on_scroll(GLFWwindow* window, double xoffset, double yoffset)
 {
-
+        if (renderer == nullptr) {
+                return;
+        }
+        renderer->handleScroll(yoffset);
 }
 
 static void glfw_error_callback(int error, const char* description)
