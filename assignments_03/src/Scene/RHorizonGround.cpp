@@ -85,18 +85,18 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 				for (int i = 0; i < this->m_numCascade; i++) {
 					float* cascadeVertices = this->m_vertexBuffer + i * 12;
 					// get corner in view space
-					camera->viewFrustumClipPlaneCornersInViewSpace(depths[i], this->m_cornerBuffer);
-					cascadeVertices[5] = -1.0f * this->m_cornerBuffer[2];
-					cascadeVertices[8] = -1.0f * this->m_cornerBuffer[11];
+                camera->viewFrustumClipPlaneCornersInViewSpace(depths[i], this->m_cornerBuffer);
+                cascadeVertices[5] = this->m_cornerBuffer[2];
+                cascadeVertices[8] = this->m_cornerBuffer[11];
 
-					camera->viewFrustumClipPlaneCornersInViewSpace(depths[i + 1], this->m_cornerBuffer);
-					cascadeVertices[0] = -1.0f * this->m_cornerBuffer[0];
-					cascadeVertices[2] = -1.0f * this->m_cornerBuffer[2];
-					cascadeVertices[9] = -1.0f * this->m_cornerBuffer[9];
-					cascadeVertices[11] = -1.0f * this->m_cornerBuffer[11];
+                camera->viewFrustumClipPlaneCornersInViewSpace(depths[i + 1], this->m_cornerBuffer);
+                cascadeVertices[0] = this->m_cornerBuffer[0];
+                cascadeVertices[2] = this->m_cornerBuffer[2];
+                cascadeVertices[9] = this->m_cornerBuffer[9];
+                cascadeVertices[11] = this->m_cornerBuffer[11];
 
-					cascadeVertices[3] = -1.0f * this->m_cornerBuffer[0];					
-					cascadeVertices[6] = -1.0f * this->m_cornerBuffer[9];
+                cascadeVertices[3] = this->m_cornerBuffer[0];
+                cascadeVertices[6] = this->m_cornerBuffer[9];
 				}
 
 				// update buffer
