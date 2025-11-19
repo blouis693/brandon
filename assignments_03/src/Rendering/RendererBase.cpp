@@ -27,14 +27,20 @@ namespace INANOA {
 			return true;
 		}		
 
-		void RendererBase::setCamera(const glm::mat4& projMat, const glm::mat4& viewMat, const glm::vec3& viewOrg) {
-			this->m_projMat = projMat;
-			this->m_viewMat = viewMat;
-			this->m_viewPosition = glm::vec4(viewOrg, 1.0f);
+void RendererBase::setCamera(const glm::mat4& projMat, const glm::mat4& viewMat, const glm::vec3& viewOrg) {
+                        this->m_projMat = projMat;
+                        this->m_viewMat = viewMat;
+                        this->m_viewPosition = glm::vec4(viewOrg, 1.0f);
 
-			glUniformMatrix4fv(SHADER_PARAMETER_BINDING::VIEW_MAT_LOCATION, 1, false, glm::value_ptr(this->m_viewMat));
-			glUniformMatrix4fv(SHADER_PARAMETER_BINDING::PROJ_MAT_LOCATION, 1, false, glm::value_ptr(this->m_projMat));
-		}
+                        glUniformMatrix4fv(SHADER_PARAMETER_BINDING::VIEW_MAT_LOCATION, 1, false, glm::value_ptr(this->m_viewMat));
+                        glUniformMatrix4fv(SHADER_PARAMETER_BINDING::PROJ_MAT_LOCATION, 1, false, glm::value_ptr(this->m_projMat));
+                }
+
+                void RendererBase::bindProgram() const {
+                        if (this->m_shaderProgram != nullptr) {
+                                this->m_shaderProgram->useProgram();
+                        }
+                }
 
 		void RendererBase::resize(const int w, const int h) {
 			this->m_frameWidth = w;

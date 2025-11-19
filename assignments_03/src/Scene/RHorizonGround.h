@@ -1,6 +1,8 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glm/mat4x4.hpp>
+
 #include "../Rendering/Camera/Camera.h"
 
 namespace INANOA {
