@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef GLM_ENABLE_EXPERIMENTAL
-#define GLM_ENABLE_EXPERIMENTAL
-#endif
-
 #include <glm/vec3.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <random>

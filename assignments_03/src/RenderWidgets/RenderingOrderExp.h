@@ -9,6 +9,12 @@
 #include <glm/vec3.hpp>
 #include <glm/mat4x4.hpp>
 
+#include <glad/glad.h>
+
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/mat4x4.hpp>
+
 #include "../Rendering/Camera/Camera.h"
 #include "../Rendering/RendererBase.h"
 #include "../Scene/RViewFrustum.h"
@@ -89,6 +95,14 @@ namespace INANOA {
                 GLuint m_slimeIbo = 0u;
                 GLuint m_slimeTexture = 0u;
                 GLsizei m_slimeIndexCount = 0;
+
+                GLuint m_rawInstanceSSBO = 0u;
+                GLuint m_visibleInstanceSSBO = 0u;
+                GLuint m_drawCommandSSBO = 0u;
+                GLuint m_instanceStateSSBO = 0u;
+
+                size_t m_totalInstanceCount = 0u;
+
 
                 GLuint m_rawInstanceSSBO = 0u;
                 GLuint m_visibleInstanceSSBO = 0u;
