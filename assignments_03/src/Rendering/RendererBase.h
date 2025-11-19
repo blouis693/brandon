@@ -23,13 +23,14 @@ namespace INANOA {
 			RendererBase(const RendererBase&&) = delete;
 			RendererBase& operator=(const RendererBase&) = delete;
 
-		public:
-			bool init(const std::string& vsResource, const std::string& fsResource, const int width, const int height);
-			void resize(const int w, const int h);
-			
-			void setCamera(const glm::mat4& projMat, const glm::mat4& viewMat, const glm::vec3& viewOrg);
+                public:
+                        bool init(const std::string& vsResource, const std::string& fsResource, const int width, const int height);
+                        void resize(const int w, const int h);
 
-			void clearRenderTarget();
+                        void setCamera(const glm::mat4& projMat, const glm::mat4& viewMat, const glm::vec3& viewOrg);
+                        void bindProgram() const;
+
+                        void clearRenderTarget();
 
 		public:
 			inline void setShadingModel(const ShadingModelType type) {

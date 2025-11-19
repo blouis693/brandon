@@ -97,7 +97,6 @@ namespace INANOA {
                 GLsizei m_slimeIndexCount = 0;
 
 
-
               
 
 
