@@ -1,5 +1,5 @@
-#include "RHorizonGround.h"
 #define GLM_ENABLE_EXPERIMENTAL
+#include "RHorizonGround.h"
 
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
@@ -23,7 +23,7 @@ namespace INANOA {
 
 				// initialize the CONSTANT index buffer
 				unsigned int* indexBuffer = new unsigned int[NUM_INDEX];
-				for (unsigned int i = 0; i < NUM_CASCADE; i++) {
+for (int i = 0; i < NUM_CASCADE; ++i) {
 					indexBuffer[i * 6 + 0] = i * 4 + 0;
 					indexBuffer[i * 6 + 1] = i * 4 + 1;
 					indexBuffer[i * 6 + 2] = i * 4 + 2;

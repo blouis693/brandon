@@ -1,7 +1,11 @@
 #pragma once
 
-#include <glm\vec3.hpp>
-#include <glm\gtx\rotate_vector.hpp>
+#ifndef GLM_ENABLE_EXPERIMENTAL
+#define GLM_ENABLE_EXPERIMENTAL
+#endif
+
+#include <glm/vec3.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 #include <random>
 
 namespace INANOA {
@@ -9,13 +13,13 @@ namespace INANOA {
 		namespace EXPERIMENTAL {
 			class Trajectory {
 			public:
-				explicit Trajectory() {
-					this->m_direction = glm::vec3(1.0, 0.0, 0.0);
-					this->setStartPosition(glm::vec3(0.0, 0.0, -50.0));
+explicit Trajectory() {
+this->m_direction = glm::vec3(1.0f, 0.0f, 0.0f);
+this->setStartPosition(glm::vec3(0.0f, 0.0f, -50.0f));
 
 					std::random_device seedGen;
 					this->m_engine = std::mt19937(seedGen());
-					this->m_dist = std::normal_distribution<double>(0.0, 0.03);
+this->m_dist = std::normal_distribution<float>(0.0f, 0.03f);
 				}
 
 				void setStartPosition(const glm::vec3& startPos) {
@@ -52,17 +56,17 @@ namespace INANOA {
 				inline glm::vec3 position() const {
 					return this->m_currPosition;
 				}
-				inline glm::vec4 positionVec4() const {
-					return glm::vec4(this->m_currPosition, 1.0);
+inline glm::vec4 positionVec4() const {
+return glm::vec4(this->m_currPosition, 1.0f);
 				}
 
 			private:
 				glm::vec3 m_currPosition;
 				glm::vec3 m_direction;
-				float m_speed = 0.01;
+float m_speed = 0.01f;
 				float m_radians = 0.0;
 
-				std::normal_distribution<double> m_dist;
+std::normal_distribution<float> m_dist;
 				std::mt19937 m_engine;
 
 				int m_frameCounter = 0;
