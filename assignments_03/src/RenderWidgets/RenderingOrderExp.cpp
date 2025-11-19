@@ -91,6 +91,7 @@ this->m_visibleInstanceSSBO = 0u;
 this->m_drawCommandSSBO = 0u;
 this->m_instanceStateSSBO = 0u;
 this->m_totalInstanceCount = 0u;
+       
 }
 
 RenderingOrderExp::~RenderingOrderExp() {

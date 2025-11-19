@@ -58,10 +58,6 @@ target_link_libraries(${PROJECT_NAME_VAR}
 # macro manually before including them. This mirrors the instructions from the
 # GLM documentation and avoids MSVC's compile-time error that is triggered when
 # the macro is missing.
-target_compile_definitions(${PROJECT_NAME_VAR}
-    PRIVATE
-        GLM_ENABLE_EXPERIMENTAL
-)
 
 # ==========================================
 # Header-only Libraries
