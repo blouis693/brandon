@@ -98,12 +98,7 @@ namespace INANOA {
 
 
 
-                GLuint m_rawInstanceSSBO = 0u;
-                GLuint m_visibleInstanceSSBO = 0u;
-                GLuint m_drawCommandSSBO = 0u;
-                GLuint m_instanceStateSSBO = 0u;
-
-                size_t m_totalInstanceCount = 0u;
+              
 
 
                 GLuint m_rawInstanceSSBO = 0u;
