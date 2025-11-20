@@ -639,6 +639,11 @@ void RenderingOrderExp::dispatchCullingCompute(const Camera* playerCam, const gl
 }
 
 void RenderingOrderExp::renderViewport(const Camera* camera, const glm::vec3& slimePos, const int viewportX, const int viewportY, const int viewportWidth, const int viewportHeight) {
+        // Make sure the renderer's shader program is bound before updating any of its uniforms.
+        // Otherwise, uniforms would be uploaded to whichever shader program happened to be bound last
+        // (e.g., the compute shader or the foliage/slime programs), which results in the grid ground and
+        // frustum not being rendered. Binding here guarantees the renderer state is valid for the draw.
+        this->m_renderer->bindProgram();
         this->m_renderer->setCamera(camera->projMatrix(), camera->viewMatrix(), camera->viewOrig());
         this->m_renderer->setViewport(viewportX, viewportY, viewportWidth, viewportHeight);
         this->m_renderer->setShadingModel(OPENGL::ShadingModelType::PROCEDURAL_GRID);

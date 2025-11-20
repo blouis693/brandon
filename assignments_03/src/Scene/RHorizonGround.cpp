@@ -1,7 +1,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "RHorizonGround.h"
 
-#include <glm/common.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 #include "../Rendering/ShaderParameterBindingPoint.h"
@@ -82,42 +81,6 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 					f,
 				};
 
-<<<<<<< HEAD
-                                // collect cascade corners
-                                for (int i = 0; i < this->m_numCascade; i++) {
-                                        float* cascadeVertices = this->m_vertexBuffer + i * 12;
-
-                                        // get near corner (in view space)
-                                        camera->viewFrustumClipPlaneCornersInViewSpace(depths[i], this->m_cornerBuffer);
-                                        const float nearLeftX = this->m_cornerBuffer[0];
-                                        const float nearLeftZ = this->m_cornerBuffer[2];
-                                        const float nearRightX = this->m_cornerBuffer[9];
-                                        const float nearRightZ = this->m_cornerBuffer[11];
-
-                                        // get far corner (in view space)
-                                        camera->viewFrustumClipPlaneCornersInViewSpace(depths[i + 1], this->m_cornerBuffer);
-                                        const float farLeftX = this->m_cornerBuffer[0];
-                                        const float farLeftZ = this->m_cornerBuffer[2];
-                                        const float farRightX = this->m_cornerBuffer[9];
-                                        const float farRightZ = this->m_cornerBuffer[11];
-
-                                        cascadeVertices[0] = nearLeftX;
-                                        cascadeVertices[1] = this->m_height;
-                                        cascadeVertices[2] = nearLeftZ;
-
-                                        cascadeVertices[3] = farLeftX;
-                                        cascadeVertices[4] = this->m_height;
-                                        cascadeVertices[5] = farLeftZ;
-
-                                        cascadeVertices[6] = farRightX;
-                                        cascadeVertices[7] = this->m_height;
-                                        cascadeVertices[8] = farRightZ;
-
-                                        cascadeVertices[9] = nearRightX;
-                                        cascadeVertices[10] = this->m_height;
-                                        cascadeVertices[11] = nearRightZ;
-                                }
-=======
 				// collect cascade corners
 				for (int i = 0; i < this->m_numCascade; i++) {
 					float* cascadeVertices = this->m_vertexBuffer + i * 12;
@@ -135,7 +98,6 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 					cascadeVertices[3] = -1.0f * this->m_cornerBuffer[0];					
 					cascadeVertices[6] = -1.0f * this->m_cornerBuffer[9];
 				}
->>>>>>> parent of a8eddf5 (Merge pull request #13 from blouis693/codex/fix-god-view-movement-direction)
 
 				// update buffer
 				glBindBuffer(GL_ARRAY_BUFFER, this->m_vertexBufferHandle);
@@ -149,20 +111,17 @@ for (int i = 0; i < NUM_CASCADE; ++i) {
 				glm::mat4 tMat = glm::translate(glm::vec3(viewPos.x, this->m_height, viewPos.z));
 				glm::mat4 viewT = glm::transpose(viewMat);
 				glm::vec3 forward = -1.0f * glm::vec3(viewT[2].x, 0.0, viewT[2].z);
-				if (glm::length(forward) > 0.0f) {
-					forward = glm::normalize(forward);
-				}
-				const glm::vec3 y(0.0f, 1.0f, 0.0f);
-				glm::vec3 x = glm::normalize(glm::cross(forward, y));
+				glm::vec3 y(0.0, 1.0, 0.0);
+				glm::vec3 x = glm::normalize(glm::cross(y, forward));
 
-				glm::mat4 rMat(1.0f);
+				glm::mat4 rMat;
 				rMat[0] = glm::vec4(x, 0.0);
 				rMat[1] = glm::vec4(y, 0.0);
 				rMat[2] = glm::vec4(forward, 0.0);
+				rMat[3] = glm::vec4(0.0, 0.0, 0.0, 1.0);
 
 				this->m_modelMat = tMat * rMat;
-                        }
-                }
-        }
+			}
+		}
+	}
 }
-
